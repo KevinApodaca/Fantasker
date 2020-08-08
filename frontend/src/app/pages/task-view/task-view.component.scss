@@ -25,6 +25,7 @@
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
     padding: 42px;
+    position: relative;
 }
 
 .title {
@@ -90,4 +91,13 @@
         text-decoration: line-through;
         opacity: 80%;
     }
+}
+
+.circle-add-button {
+    position: absolute;
+    right: 35px;
+    bottom: 35px;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
 }
