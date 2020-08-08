@@ -4,10 +4,8 @@ const app = express();
 const {mongoose} = require('./db/mongoose');
 const bodyParser = require('body-parser');
 
-/* Load models */
 const { List, Task } = require('./db/models');
 
-/* Use middle-war */
 app.use(bodyParser.json());
 
 /* CORS Header */
@@ -16,6 +14,7 @@ app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
+
 /* **** LIST ROUTE HANDLERS ***** */
 
 /* GET the lists */
