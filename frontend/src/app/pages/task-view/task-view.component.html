@@ -10,8 +10,8 @@
                 <a class="list-menu-item is-active">
                     <p>List #1</p>
                 </a>
-                
-                <a class="list-menu-item" *ngFor="let list of lists">
+
+                <a class="list-menu-item" *ngFor="let list of lists" [routerLink]="['/lists', list._id]">
                     <p> {{ list.title }}</p>
                 </a>
             </div>
