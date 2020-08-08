@@ -10,6 +10,12 @@ const { List, Task } = require('./db/models');
 /* Use middle-war */
 app.use(bodyParser.json());
 
+/* CORS Header */
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 /* **** LIST ROUTE HANDLERS ***** */
 
 /* GET the lists */
