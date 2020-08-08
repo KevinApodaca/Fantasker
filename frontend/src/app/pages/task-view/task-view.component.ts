@@ -9,7 +9,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 })
 export class TaskViewComponent implements OnInit {
 
-  lists: any;
+  lists: any[];
   constructor(private taskService: TaskService, private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -19,7 +19,7 @@ export class TaskViewComponent implements OnInit {
       }
     )
     this.taskService.getLists().subscribe((lists: any) => {
-      console.log(lists);
+      this.lists = lists;
     })
   }
 }

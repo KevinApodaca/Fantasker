@@ -8,15 +8,14 @@
 
             <div class="list-menu">
                 <a class="list-menu-item is-active">
-                    <p>Sample 1</p>
+                    <p>List #1</p>
                 </a>
-                <a class="list-menu-item">
-                    <p>Sample 2</p>
-                </a>
-                <a class="list-menu-item">
-                    <p>Sample 3</p>
+                
+                <a class="list-menu-item" *ngFor="let list of lists">
+                    <p> {{ list.title }}</p>
                 </a>
             </div>
+
             <button class="button is-primary has-text-white" routerLink="/new-list">+ New List</button>
         </div>
 
