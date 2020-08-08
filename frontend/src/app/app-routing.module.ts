@@ -5,8 +5,10 @@ import { NewListComponent } from './pages/new-list/new-list.component';
 
 
 const routes: Routes = [
-  {path: '', component: TaskViewComponent },
-  { path: 'new-list', component: NewListComponent }
+  { path: '', redirectTo: '/lists', pathMatch: 'full' },
+  { path: 'new-list', component: NewListComponent },
+  { path: 'lists', component: TaskViewComponent },
+  { path: 'lists/:listId', component: TaskViewComponent }
 ];
 
 @NgModule({
