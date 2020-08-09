@@ -3,8 +3,8 @@
 @import url('https://fonts.googleapis.com/css?family=Lato:400,700|Nunito:400,700');
 
 /* Colors */
-$turquoise: #44ddd0;
-$green: #27d7a1;
+$skyblue: #00B4DB;
+$blue: #0083B0;
 $light-green: #45f69e;
 $dark-green: rgb(0,100,80);
 
@@ -12,7 +12,7 @@ $light: #f8f8f8;
 
 /* Bulma global vars */
 $family-sans-serif: "Nunito", sans-serif;
-$primary: $green;
+$primary: $blue;
 $link: $light-green;
 
 /* Bulma component vars */
@@ -23,7 +23,7 @@ $input-shadow: none;
 /* Global styles */
 
 html {
-    background: linear-gradient(to right top, $turquoise, $green);
+    background: linear-gradient(to right top, $skyblue, $blue);
 }
 
 html, body {
@@ -54,4 +54,24 @@ html, body {
     text-transform: uppercase;
     letter-spacing: 2px;
 
+}
+
+.button.is-primary {
+    background-color: $skyblue;
+
+    &:hover {
+        background-color: $blue;
+    }
+}
+
+.button.is-success {
+    background-color: $skyblue;
+
+    &:hover {
+        background-color: $blue;
+    }
+}
+
+.has-text-primary {
+    color: $skyblue !important;
 }
