@@ -7,7 +7,9 @@
 
 <h3 align="center">
  A progressive web application to help you manage your tasks.
- </h3> 
+ </h3>
+ 
+![GitHub top language](https://img.shields.io/github/languages/top/KevinApodaca/Fantasker?style=for-the-badge) ![GitHub stars](https://img.shields.io/github/stars/KevinApodaca/Fantasker?style=for-the-badge) ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/KevinApodaca/Fantasker?style=for-the-badge) ![GitHub repo size](https://img.shields.io/github/repo-size/KevinApodaca/Fantasker?style=for-the-badge)
 
 <p align="center">
 	<strong>
