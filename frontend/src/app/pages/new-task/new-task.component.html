@@ -4,11 +4,11 @@
             Add a Task
         </h1>
 
-        <input #listTitleInput class="input has-background-light is-medium" type="text" placeholder="Enter your new task">
+        <input #taskTitleInput class="input has-background-light is-medium" type="text" placeholder="Enter your new task">
         <br><br>
         <div class="buttons is-right">
             <button class="button is-medium" routerLink="/">Cancel</button>
-            <button class="button is-primary is-medium" (click)="createTask(listTitleInput.value)">Add</button>
+            <button class="button is-primary is-medium" (click)="createTask(taskTitleInput.value)">Add</button>
         </div>
 
     </div>
