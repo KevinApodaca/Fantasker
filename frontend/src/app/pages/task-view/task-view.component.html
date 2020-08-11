@@ -16,19 +16,27 @@
         </div>
 
         <div class="task-list-container has-background-light">
-            <h1 class="title has-text-primary">
-                <i class="fas fa-tasks"></i>
-                Tasks
-            </h1>
+            <div *ngIf="tasks">
+                <h1 class="title has-text-primary">
+                    <i class="fas fa-tasks"></i>
+                    Tasks
+                </h1>
+    
+                <!-- Task Elements -->
+                <div class="task" *ngFor="let task of tasks" (click)="onTaskClick(task)" [ngClass]="{ 'completed': task.completed }"> 
+                    <p> {{ task.title }}</p>
+                </div>
 
-            <!-- Task Elements -->
-            <div class="task" *ngFor="let task of tasks" (click)="onTaskClick(task)" [ngClass]="{ 'completed': task.completed }"> 
-                <p> {{ task.title }}</p>
+                <h3 class="empty-state-text" *ngIf="tasks.length === 0">This list has no tasks, click the button to add one!</h3>
+    
+                <button routerLink="./new-task" class="button circle-add-button is-primary">
+                    <img src="../../../assets/plus.svg" alt="Plus Icon" >
+                </button>
             </div>
 
-            <button routerLink="./new-task" class="button circle-add-button is-primary">
-                <img src="../../../assets/plus.svg" alt="Plus Icon" >
-            </button>
+            <div *ngIf="!tasks">
+                <h3 class="empty-state-text">Select a list from the sidebar!</h3>
+            </div>
         </div>
     </div>
 </div>
