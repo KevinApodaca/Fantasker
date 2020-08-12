@@ -22,6 +22,19 @@ app.use(function(req, res, next) {
     next();
 });
 
+/* Verify valid JWT */
+let authenticate = (req, res, next) => {
+    let token = req.header('x-access-token');
+    jwt.verify(token, User.getJWTSecret(), (err, decoded) => {
+        if (err) {
+            res.status(401).send(err);
+        } else {
+            req.user_id = decoded._id;
+            next();
+        }
+    });
+}
+
 /* Verify Refresh Token */
 let verifySession = (req, res, next) => {
     let refreshToken = req.header('x-refresh-token');
@@ -63,8 +76,10 @@ let verifySession = (req, res, next) => {
 /* **** LIST ROUTE HANDLERS ***** */
 
 /* GET the lists */
-app.get('/lists', (req, res) => {
-    List.find().then((lists) => {
+app.get('/lists', authenticate, (req, res) => {
+    List.find({
+        _userId: req.user_id
+    }).then((lists) => {
         res.send(lists);
     }).catch((e) => {
         res.send(e);
