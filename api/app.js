@@ -191,13 +191,27 @@ app.patch('/lists/:listId/tasks/:taskId', authenticate, (req, res) => {
     })
 });
 /* DELETE some unit task in some list */
-app.delete('/lists/:listId/tasks/:taskId', (req, res) => {
-    Task.findOneAndRemove({ 
-        _id: req.params.taskId,
-        _listId: req.params.listId
-    }).then((removedTaskDoc) => {
-        res.send(removedTaskDoc);
-    })
+app.delete('/lists/:listId/tasks/:taskId', authenticate, (req, res) => {
+    List.findOne({
+        _id: req.params.listId,
+        _userId: req.user_id
+    }).then((list) => {
+        if (list) {
+            return true;
+        }
+        return false;
+    }).then((canDeleteTasks) => {
+        if (canDeleteTasks) {
+            Task.findOneAndRemove({ 
+                _id: req.params.taskId,
+                _listId: req.params.listId
+            }).then((removedTaskDoc) => {
+                res.send(removedTaskDoc);
+            })
+        } else {
+            res.sendStatus(404);
+        }
+    });
 });
 
 /* USER ROUTES */
