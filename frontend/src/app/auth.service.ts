@@ -28,7 +28,7 @@ export class AuthService {
   }
 
   getAccessToken() {
-    return localStorage.getItem('x-access-item');
+    return localStorage.getItem('x-access-token');
   }
 
   getRefreshToken() {
@@ -41,13 +41,13 @@ export class AuthService {
 
   private setSession(userId: string, accessToken: string, refreshToken: string) {
     localStorage.setItem('user-id', userId);
-    localStorage.setItem('access-token', accessToken);
-    localStorage.setItem('refresh-token', refreshToken);
+    localStorage.setItem('x-access-token', accessToken);
+    localStorage.setItem('x-refresh-token', refreshToken);
   }
 
   private removeSession() {
     localStorage.removeItem('user-id');
-    localStorage.removeItem('access-token');
-    localStorage.removeItem('refresh-token');
+    localStorage.removeItem('x-access-token');
+    localStorage.removeItem('x-refresh-token');
   }
 }
