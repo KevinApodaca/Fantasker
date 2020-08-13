@@ -138,26 +138,56 @@ app.get('/lists/:listId/tasks/:taskId', (req, res) => {
     })
 });
 /* POST a new task in some given list */
-app.post('/lists/:listId/tasks', (req, res) => {
-    let newTask = new Task({
-        title: req.body.title,
-        _listId: req.params.listId
+app.post('/lists/:listId/tasks', authenticate, (req, res) => {
 
-    });
-    newTask.save().then((newTaskDoc) => {
-        res.send(newTaskDoc);
+    List.findOne({
+        _id: req.params.listId,
+        _userId: req.user_id
+    }).then((list) => {
+        if (list) {
+            return true;
+        }
+        return false;
+    }).then((canCreateTask) => {
+        if (canCreateTask) {
+            let newTask = new Task({
+                title: req.body.title,
+                _listId: req.params.listId
+        
+            });
+            newTask.save().then((newTaskDoc) => {
+                res.send(newTaskDoc);
+            })
+        } else {
+            res.sendStatus(404);
+        }
     })
 })
 /* PATCH and update some task in some list */
-app.patch('/lists/:listId/tasks/:taskId', (req, res) => {
-    Task.findOneAndUpdate({
-        _id: req.params.taskId,
-        _listId: req.params.listId
-    }, {
-            $set: req.body
+app.patch('/lists/:listId/tasks/:taskId', authenticate, (req, res) => {
+
+    List.findOne({
+        _id: req.params.listId,
+        _userId: req.user_id
+    }).then((list) => {
+        if (list) {
+            return true;
         }
-    ).then(() => {
-        res.send({message: "updated succesfully"});
+        return false;
+    }).then((canUpdateTasks) => {
+        if (canUpdateTasks) {
+            Task.findOneAndUpdate({
+                _id: req.params.taskId,
+                _listId: req.params.listId
+            }, {
+                    $set: req.body
+                }
+            ).then(() => {
+                res.send({message: "updated succesfully"});
+            })
+        } else {
+            res.sendStatus(404);
+        }
     })
 });
 /* DELETE some unit task in some list */
