@@ -86,10 +86,11 @@ app.get('/lists', authenticate, (req, res) => {
     });
 })
 /* POST a new list */
-app.post('/lists', (req, res) => {
+app.post('/lists', authenticate, (req, res) => {
     let title = req.body.title;
     let newList = new List ({
-        title
+        title,
+        _userId: req.user_id
     });
     newList.save().then((listDoc) => {
         // return full list doc
@@ -111,6 +112,7 @@ app.delete('/lists/:id', (req, res) => {
         _id: req.params.id
     }).then((removedListDoc) => {
         res.send(removedListDoc);
+        deleteTasksFromList(removedListDoc._id); // delete tasks for the list
     })
 });
 
@@ -238,6 +240,14 @@ app.get('/users/me/access-token', verifySession, (req, res) => {
         res.status(400).send(e);
     })
 })
+
+let deleteTasksFromList = (_listId) => {
+    Task.deleteMany({
+        _listId
+    }).then(() => {
+        console.log("Tasks deleted from" + _listId);
+    })
+}
 
 app.listen(3000, () => {
     console.log('Listening on port 3000')
