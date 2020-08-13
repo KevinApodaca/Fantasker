@@ -98,8 +98,8 @@ app.post('/lists', authenticate, (req, res) => {
     })
 })
 /* PATCH and update a new list */
-app.patch('/lists/:id', (req, res) => {
-    List.findOneAndUpdate({ _id: req.params.id }, {
+app.patch('/lists/:id', authenticate, (req, res) => {
+    List.findOneAndUpdate({ _id: req.params.id, _userId: req._userId }, {
         $set: req.body
     }).then(() => {
         res.sendStatus(200);
@@ -107,19 +107,20 @@ app.patch('/lists/:id', (req, res) => {
 
 })
 /* DELETE a specific list */
-app.delete('/lists/:id', (req, res) => {
+app.delete('/lists/:id', authenticate, (req, res) => {
     List.findOneAndRemove({ 
-        _id: req.params.id
+        _id: req.params.id,
+        _userId: req.user_id
     }).then((removedListDoc) => {
         res.send(removedListDoc);
-        deleteTasksFromList(removedListDoc._id); // delete tasks for the list
+        deleteTasksFromList(removedListDoc._id);
     })
 });
 
 /* **** LIST ROUTE HANDLERS ***** */
 
 /* GET all tasks in a list */
-app.get('/lists/:listId/tasks', (req, res) => {
+app.get('/lists/:listId/tasks', authenticate, (req, res) => {
     Task.find({
         _listId: req.params.listId
     }).then((tasks) => {
